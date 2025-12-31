@@ -1,0 +1,41 @@
+<div class="container">
+  <h1>📄 PDF AI Analyzer</h1>
+
+  <!-- File Upload -->
+  <div class="section">
+    <label for="fileUpload">Upload PDF:</label>
+    <input id="fileUpload" type="file" (change)="onFileChange($event)" accept=".pdf" />
+    <button (click)="upload()" [disabled]="uploading">
+      {{ uploading ? 'Uploading...' : 'Upload & Extract' }}
+    </button>
+  </div>
+
+  <!-- Extracted Text -->
+  <div class="section">
+    <h2>Extracted Text Preview:</h2>
+    <!-- keeps exact formatting from PDF -->
+    <pre class="preview-box">{{ textPreview || 'No preview yet' }}</pre>
+  </div>
+
+  <!-- Ask AI -->
+  <div class="section">
+    <h2>Ask AI:</h2>
+    <textarea [(ngModel)]="question" placeholder="Type your question here..."></textarea>
+
+    <label for="lang">Language:</label>
+    <select id="lang" [(ngModel)]="language">
+      <option *ngFor="let l of languages" [value]="l">{{ l }}</option>
+    </select>
+
+    <button (click)="ask()" [disabled]="asking">
+      {{ asking ? 'Thinking...' : 'Ask AI' }}
+    </button>
+  </div>
+
+  <!-- Answer -->
+  <div class="section">
+    <h2>Answer:</h2>
+    <!-- styled div keeps line breaks & bullets -->
+    <div class="answer-box">{{ answer || 'No answer yet' }}</div>
+  </div>
+</div>
